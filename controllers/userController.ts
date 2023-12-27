@@ -61,7 +61,7 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
         }
         const salt = await bcrypt.genSalt(10)
         const hash = await bcrypt.hash(password, salt)
-        const user: IUser = await User.create({fullName, email, password: hash, phoneNumber, storeId})
+        const user: IUser = await User.create({fullName, email, password: hash, phoneNumber, storeId, isAdmin: false})
         if (!user) {
             return void res.status(400).json({error: 'Error While Creating User'})
         }
