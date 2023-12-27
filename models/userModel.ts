@@ -5,7 +5,7 @@ interface IUser {
     email: string,
     password: string,
     phoneNumber: string,
-    isAdmin: boolean,
+    isAdmin? : boolean,
     storeId: mongoose.Types.ObjectId
 }
 
