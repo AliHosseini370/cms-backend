@@ -29,7 +29,6 @@ const userSchema = new mongoose.Schema<IUser>({
     },
     isAdmin: {
         type: Boolean,
-        required: true
     },
     storeId: {
         type: mongoose.Schema.Types.ObjectId,
