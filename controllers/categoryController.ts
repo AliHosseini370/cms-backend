@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 const getCategories = async (req: Request, res: Response): Promise<void> => {
     const { storeId } = req.params
     try {
-        const categories: ICategory[] = await Category.find({storeId}).sort({ createdAt: -1}).populate('billboard').populate('products')
+        const categories: ICategory[] = await Category.find({storeId}).sort({ createdAt: -1}).populate('billboard').populate({path: 'products', model: 'Product', populate: [{path: 'color', model: 'Color'}, {path: 'size', model: 'Size'}]})
         if (!categories) {
             return void res.status(404).json({error: 'cant find any categories'})
         }
