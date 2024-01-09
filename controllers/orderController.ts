@@ -6,9 +6,9 @@ import axios from 'axios';
 
 //get orders of a store
 const getOrders = async (req: Request, res: Response): Promise<void> => {
-    const { storeId } = req.body
+    const { storeId } = req.params
     try {
-        const orders: IOrder[] = await Order.find({storeId}).sort({ createdAt: -1}).populate('products')
+        const orders: IOrder[] = await Order.find({storeId}).sort({ createdAt: -1}).populate({path: 'products', model: 'Product', populate: [{path: 'color', model: 'Color'}, {path: 'size', model: 'Size'}]})
         if (!orders) {
             return void res.status(404).json({error: 'Cant find any orders in this store'})
         }
@@ -21,9 +21,9 @@ const getOrders = async (req: Request, res: Response): Promise<void> => {
 
 //get order of a store
 const getOrder = async (req: Request, res: Response): Promise<void> => {
-    const { id } = req.body
+    const { id } = req.params
     try {
-        const order: IOrder | null = await Order.findById(id).populate('products')
+        const order: IOrder | null = await Order.findById(id).populate({path: 'products', model: 'Product', populate: [{path: 'color', model: 'Color'}, {path: 'size', model: 'Size'}]})
         if (!order) {
             return void res.status(404).json({error: 'Cant find this order'})
         }

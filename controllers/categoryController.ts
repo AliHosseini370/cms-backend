@@ -22,7 +22,7 @@ const getCategories = async (req: Request, res: Response): Promise<void> => {
 const getCategory = async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params
     try {
-        const category: ICategory | null = await Category.findById(id).populate('billboard').populate('products')
+        const category: ICategory | null = await Category.findById(id).populate('billboard').populate({path: 'products', model: 'Product', populate: [{path: 'color', model: 'Color'}, {path: 'size', model: 'Size'}]})
         if (!category) {
             return void res.status(404).json({error: 'cant find any billboard'})
         }
