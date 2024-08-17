@@ -16,7 +16,7 @@ import userRoutes from './routes/userRoutes'
 const app = express()
 
 app.use(cors({
-    origin: ['http://localhost:3000']
+    origin: ['http://localhost:3000', 'https://cms-front-ijs9.onrender.com']
 }));
 
 app.use(express.json())
